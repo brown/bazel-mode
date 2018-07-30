@@ -90,7 +90,15 @@
            "py_library" "py_runtime" "py_test" "sh_binary" "sh_library" "sh_test" "test_suite"
            "toolchain" "xcode_config" "xcode_version"
            ;; Go language rules.
-           "go_binary" "go_library" "go_rule" "go_source" "go_test" "go_vet_test")
+           "gazelle" "gazelle_dependencies"
+           "go_binary" "go_context" "go_download_sdk" "go_embed_data" "go_host_sdk" "go_library"
+           "go_local_sdk" "go_path" "go_proto_compiler" "go_proto_library" "go_register_toolchains"
+           "go_repository" "go_rule" "go_rules_dependencies" "go_source" "go_test" "go_toolchain"
+           ;; Docker rules.
+           "container_bundle" "container_image" "container_import" "container_load"
+           "container_pull" "container_push"
+           "cc_image" "d_image" "go_image" "groovy_image" "java_image" "nodejs_image" "py3_image"
+           "py_image" "rust_image" "scala_image" "war_image")
           symbol-end)
      . font-lock-builtin-face)
     ;; TODO:  Handle assignments better.  The code below fontifies a[b] = 1 and a = b = 2.

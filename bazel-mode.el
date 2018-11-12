@@ -89,16 +89,35 @@
            "objc_proto_library" "platform" "proto_lang_toolchain" "proto_library" "py_binary"
            "py_library" "py_runtime" "py_test" "sh_binary" "sh_library" "sh_test" "test_suite"
            "toolchain" "xcode_config" "xcode_version"
+           ;; Closure rules.
+           "closure_css_binary" "closure_css_library" "closure_grpc_web_library"
+           "closure_java_template_library" "closure_js_binary" "closure_js_deps"
+           "closure_js_library" "closure_js_proto_library" "closure_js_template_library"
+           "closure_js_test" "closure_proto_library" "closure_py_template_library" "phantomjs_test"
+           ;; D rules.
+           "d_binary" "d_docs" "d_library" "d_source_library" "d_test"
+           ;; Docker rules.
+           "container_bundle" "container_image" "container_import" "container_load"
+           "container_pull" "container_push"
+           "cc_image" "d_image" "go_image" "groovy_image" "java_image" "nodejs_image" "py3_image"
+           "py_image" "rust_image" "scala_image" "war_image"
            ;; Go language rules.
            "gazelle" "gazelle_dependencies"
            "go_binary" "go_context" "go_download_sdk" "go_embed_data" "go_host_sdk" "go_library"
            "go_local_sdk" "go_path" "go_proto_compiler" "go_proto_library" "go_register_toolchains"
            "go_repository" "go_rule" "go_rules_dependencies" "go_source" "go_test" "go_toolchain"
-           ;; Docker rules.
-           "container_bundle" "container_image" "container_import" "container_load"
-           "container_pull" "container_push"
-           "cc_image" "d_image" "go_image" "groovy_image" "java_image" "nodejs_image" "py3_image"
-           "py_image" "rust_image" "scala_image" "war_image")
+           ;; Groovy rules.
+           "groovy_and_java_library" "groovy_binary" "groovy_junit_test" "groovy_library"
+           "spock_test"
+           ;; Kubernetes rules.
+           "k8s_defaults" "k8s_object" "k8s_objects"
+           ;; Rust rules.
+           "rust_benchmark" "rust_binary" "rust_doc" "rust_doc_test" "rust_library" "rust_test"
+           ;; Scala rules.
+           "scala_binary" "scala_library/scala_macro_library" "scala_test" "scalapb_proto_library"
+           ;; Swift rules.
+           "swift_binary" "swift_c_module" "swift_import" "swift_library" "swift_module_alias"
+           "swift_proto_library" "swift_test")
           symbol-end)
      . font-lock-builtin-face)
     ;; TODO:  Handle assignments better.  The code below fontifies a[b] = 1 and a = b = 2.

@@ -31,8 +31,8 @@
   :type 'hook
   :group 'bazel)
 
-(defcustom bazel-format-command "buildifier"
-  "The executable used to format Bazel BUILD files."
+(defcustom buildifier-command (purecopy "buildifier")
+  "The command used to format Bazel BUILD files."
   :type 'string
   :group 'bazel)
 
@@ -157,7 +157,7 @@
                           (group (| ?a ?d ?c))
                           (group (+ digit)) (? ?, (group (+ digit)))
                           line-end))
-    (error "Bad bazel format diff output"))
+    (error "bad buildifier diff output"))
   (let* ((orig-start (string-to-number (match-string 1)))
          (orig-count (if (null (match-string 2))
                          1
@@ -224,37 +224,55 @@
 (defun bazel-format ()
   "Format the current buffer using buildifier."
   (interactive)
-  (let ((input nil)
-        (output nil)
-        (errors nil))
+  (let ((input-file nil)
+        (output-buffer nil)
+        (errors-file nil))
     (unwind-protect
         (progn
-          (setf input (make-temp-file "bazel-format-input-")
-                output (get-buffer-create "*bazel-format-output*")
-                errors (make-temp-file "bazel-format-errors-"))
-          (write-region nil nil input nil 'silent-write)
-          (with-current-buffer output (erase-buffer))
+          (setf input-file (make-temp-file "bazel-format-input-")
+                output-buffer (get-buffer-create "*bazel-format-output*")
+                errors-file (make-temp-file "bazel-format-errors-"))
+          (write-region nil nil input-file nil 'silent-write)
+          (with-current-buffer output-buffer (erase-buffer))
           (let ((status
-                 (call-process bazel-format-command nil `(,output ,errors) nil "-mode=diff" input)))
-            (if (zerop status)
-                (save-excursion (bazel-patch-buffer (current-buffer) output))
-              (let ((errors-buffer (get-buffer-create "*BazelFormatErrors*"))
-                    (coding-system-for-read "utf-8"))
-                (message "Bazel format errors")
-                (let ((file-name (file-name-nondirectory (buffer-file-name))))
-                  (with-current-buffer errors-buffer
-                    ;; A previously created compilation buffer is read only.
-                    (setq buffer-read-only nil)
-                    (erase-buffer)
-                    (insert-file-contents-literally errors)
-                    (let ((regexp (rx-to-string `(sequence line-start (group ,input) ":"))))
-                      (while (search-forward-regexp regexp nil t)
-                        (replace-match file-name t t nil 1)))
-                    (goto-char (point-min))
-                    (compilation-mode))
-                  (display-buffer errors-buffer))))))
-      (when input (delete-file input))
-      (when output (kill-buffer output))
-      (when errors (delete-file errors)))))
+                 (call-process buildifier-command nil `(,output-buffer ,errors-file) nil
+                               "-mode=diff" input-file)))
+            (case status
+              ;; No reformatting needed or reformatting was successful.
+              ((0 4)
+               (save-excursion (bazel-patch-buffer (current-buffer) output-buffer))
+               (let ((errors-buffer (get-buffer "*BazelFormatErrors*")))
+                 (when errors-buffer (kill-buffer errors-buffer))))
+              (t
+               (case status
+                 (1 (message "Starlark language syntax errors"))
+                 (2 (message "buildifier invoked incorrectly or cannot run diff"))
+                 (3 (message "buildifier encountered an unexpected run-time error"))
+                 (t (message "unknown buildifier error")))
+               (sit-for 1)
+               (let ((build-file-name (file-name-nondirectory (buffer-file-name)))
+                     (errors-buffer (get-buffer-create "*BazelFormatErrors*")))
+                 (with-current-buffer errors-buffer
+                   ;; A previously created compilation errors buffer is read only.
+                   (setq buffer-read-only nil)
+                   (erase-buffer)
+                   (let ((coding-system-for-read "utf-8"))
+                     (insert-file-contents-literally errors-file))
+                   (when (= status 1)
+                     ;; Replace the name of the temporary input file with that
+                     ;; of the BUILD file we are saving in all syntax error
+                     ;; messages.
+                     (let ((regexp (rx-to-string `(sequence line-start (group ,input-file) ":"))))
+                       (while (search-forward-regexp regexp nil t)
+                         (replace-match build-file-name t t nil 1)))
+                     ;; Use compilation mode so next-error can be used to find
+                     ;; all the errors in the BUILD file.
+                     (goto-char (point-min))
+                     (compilation-mode)))
+                 (display-buffer errors-buffer))))))
+      (when input-file (delete-file input-file))
+      (when output-buffer (kill-buffer output-buffer))
+      (when errors-file (delete-file errors-file))
+      )))
 
 (provide 'bazel-mode)

@@ -145,7 +145,7 @@
   (setq python-indent-guess-indent-offset nil
         python-indent-offset 4)
 
-  ;; Replace Python keyword fontification with Skylark keyword fontification.
+  ;; Replace Python keyword fontification with Starlark keyword fontification.
   (setq font-lock-defaults
         '(bazel-font-lock-keywords
           nil nil nil nil

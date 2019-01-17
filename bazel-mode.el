@@ -31,8 +31,15 @@
   :type 'hook
   :group 'bazel)
 
-(defcustom buildifier-command (purecopy "buildifier")
-  "The command used to format Bazel BUILD files."
+(defcustom buildifier-command "buildifier"
+  "The command used to format Bazel Starlark files."
+  :type 'string
+  :group 'bazel)
+
+(defcustom buildifier-diff-command "diff"
+  "The command used by buildifier to create a diff of formatting changes to a
+Bazel Starlark file.  To be used by Bazel Mode, the buildifier-diff-command
+must produce output compatible with that of diff."
   :type 'string
   :group 'bazel)
 
@@ -245,6 +252,7 @@
           (with-current-buffer output-buffer (erase-buffer))
           (let ((status
                  (call-process buildifier-command nil `(,output-buffer ,errors-file) nil
+                               (concat "-diff_command=" buildifier-diff-command)
                                "-mode=diff"
                                (concat "-type=" (starlark-file-type file-name))
                                input-file)))
@@ -283,7 +291,6 @@
                  (display-buffer errors-buffer))))))
       (when input-file (delete-file input-file))
       (when output-buffer (kill-buffer output-buffer))
-      (when errors-file (delete-file errors-file))
-      )))
+      (when errors-file (delete-file errors-file)))))
 
 (provide 'bazel-mode)

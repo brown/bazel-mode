@@ -6,7 +6,8 @@ Bazel Mode is a GNU Emacs major mode for editing Bazel BUILD, WORKSPACE, and
 bzl files, which are written in the Starlark language.
 
 To use Bazel Mode, add the following to your .emacs file after replacing
-"/path/to/bazel-mode/directory" with location where you installed Bazel Mode.
+"/path/to/bazel-mode/directory" with the location where you installed Bazel
+Mode:
 
     (add-to-list 'load-path "/path/to/bazel-mode/directory")
     (autoload 'bazel-mode "bazel-mode" "Major mode for Bazel BUILD files." t)

@@ -13,7 +13,7 @@ Mode:
     (autoload 'bazel-mode "bazel-mode" "Major mode for Bazel BUILD files." t)
     (add-to-list 'auto-mode-alist '("/BUILD\\(\\..*\\)?\\'" . bazel-mode))
     (add-to-list 'auto-mode-alist '("/WORKSPACE\\'" . bazel-mode))
-    (add-to-list 'auto-mode-alist '("\\.bzl\\'" . bazel-mode))
+    (add-to-list 'auto-mode-alist '("\\.\\(BUILD\\|WORKSPACE\\|bzl\\)\\'" . bazel-mode))
 
 Bazel Mode supports reformatting BUILD files with buildifier.  To use this
 feature, you'll need to download and install buildifier, which is part of

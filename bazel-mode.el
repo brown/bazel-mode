@@ -252,9 +252,9 @@ must produce output compatible with that of diff."
           (with-current-buffer output-buffer (erase-buffer))
           (let ((status
                  (call-process buildifier-command nil `(,output-buffer ,errors-file) nil
-                               (concat "-diff_command=" buildifier-diff-command)
-                               "-mode=diff"
-                               (concat "-type=" (starlark-file-type file-name))
+                               (concat "--diff_command=" buildifier-diff-command)
+                               "--mode=diff"
+                               (concat "--type=" (starlark-file-type file-name))
                                input-file)))
             (case status
               ;; No reformatting needed or reformatting was successful.

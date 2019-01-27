@@ -162,8 +162,8 @@ must produce output compatible with that of diff."
   (let* ((dot (position ?. file-name :from-end t))
          (base (if dot (subseq file-name 0 dot) file-name))
          (extension (if dot (subseq file-name (1+ dot)) "")))
-    (cond ((or (string= base "BUILD") (string= extension "build")) "build")
-          ((or (string= base "WORKSPACE") (string= extension "workspace")) "workspace")
+    (cond ((or (string= base "BUILD") (string= extension "BUILD")) "build")
+          ((or (string= base "WORKSPACE") (string= extension "WORKSPACE")) "workspace")
           (t "bzl"))))
 
 (defun bazel-parse-diff-action ()

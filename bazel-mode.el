@@ -123,6 +123,8 @@ must produce output compatible with that of diff."
            "spock_test"
            ;; Kubernetes rules.
            "k8s_defaults" "k8s_object" "k8s_objects"
+           ;; Lisp rules.
+           "lisp_binary" "lisp_library" "lisp_test"
            ;; Rust rules.
            "rust_benchmark" "rust_binary" "rust_doc" "rust_doc_test" "rust_library" "rust_test"
            ;; Scala rules.

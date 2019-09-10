@@ -95,12 +95,21 @@ must produce output compatible with that of diff."
            "java_runtime_suite" "java_test" "java_toolchain" "local_repository" "maven_jar"
            "maven_server" "new_git_repository" "new_http_archive" "new_local_repository"
            "objc_bundle" "objc_bundle_library" "objc_framework" "objc_import" "objc_library"
-           "objc_proto_library" "platform" "proto_lang_toolchain" "proto_library" "py_binary"
-           "py_library" "py_runtime" "py_test" "sh_binary" "sh_library" "sh_test" "test_suite"
+           "objc_proto_library" "platform" "proto_lang_toolchain" "proto_library"
+           "sh_binary" "sh_library" "sh_test" "test_suite"
            "toolchain" "xcode_config" "xcode_version"
 
            ;; Language rules.
 
+           ;; Apple rules.
+           "apple_bundle_import" "apple_bundle_version" "apple_dynamic_framework_import"
+           "apple_resource_bundle" "apple_resource_group" "apple_static_framework_import"
+           "ios_application" "ios_extension" "ios_framework" "ios_imessage_application"
+           "ios_imessage_extension" "ios_static_framework" "ios_sticker_pack_extension"
+           "ios_ui_test" "ios_ui_test_suite" "ios_unit_test" "ios_unit_test_suite"
+           "macos_application" "macos_bundle" "macos_command_line_application" "macos_extension"
+           "macos_unit_test" "tvos_application" "tvos_extension" "tvos_ui_test" "tvos_unit_test"
+           "watchos_application" "watchos_extension"
            ;; Closure rules.
            "closure_css_binary" "closure_css_library" "closure_grpc_web_library"
            "closure_java_template_library" "closure_js_binary" "closure_js_deps"
@@ -121,18 +130,36 @@ must produce output compatible with that of diff."
            ;; Groovy rules.
            "groovy_and_java_library" "groovy_binary" "groovy_junit_test" "groovy_library"
            "spock_test"
+           ;; Jsonnet rules.
+           "jsonnet_library" "jsonnet_to_json" "jsonnet_to_json_test"
+           ;; Kotlin rules.
+           "define_kt_toolchain" "kotlin_repositories" "kt_jvm_binary" "kt_jvm_import"
+           "kt_jvm_library" "kt_jvm_test" "kt_toolchain"
            ;; Kubernetes rules.
            "k8s_defaults" "k8s_object" "k8s_objects"
            ;; Lisp rules.
            "lisp_binary" "lisp_library" "lisp_test"
+           ;; Maven rules.
+           "artifact" "maven_install" "pinned_maven_install"
+           ;; Node.js rules.
+           "check_bazel_version" "history" "http_server" "node_repositories" "nodejs_binary"
+           "nodejs_test" "npm_install" "npm_package" "rollup_bundle" "yarn_install"
+           ;; Perl rules.
+           "perl_binary" "perl_test"
            ;; Rust rules.
-           "rust_benchmark" "rust_binary" "rust_doc" "rust_doc_test" "rust_library" "rust_test"
+           "rust_binary" "rust_doc" "rust_doc_test" "rust_grpc_library" "rust_library"
+           "rust_proto_library" "rust_test"
+           ;; Python rules.
+           "pip_import" "py_binary" "py_library" "py_runtime" "py_runtime_pair" "py_test"
            ;; Scala rules.
-           "scala_binary" "scala_library" "scala_macro_library" "scala_test"
-           "scalapb_proto_library"
+           "scala_binary" "scala_doc" "scala_import" "scala_library" "scala_library_suite"
+           "scala_macro_library" "scala_proto_library" "scala_repl" "scala_test" "scala_test_suite"
+           "scala_toolchain" "thrift_library"
            ;; Swift rules.
-           "swift_binary" "swift_c_module" "swift_import" "swift_library" "swift_module_alias"
-           "swift_proto_library" "swift_test")
+           "SwiftInfo" "SwiftToolchainInfo" "swift_binary" "swift_c_module" "swift_common module"
+           "swift_import" "swift_library" "swift_module_alias" "swift_proto_library"
+           "swift_rules_dependencies" "swift_test"
+           )
           symbol-end)
      . font-lock-builtin-face)
     ;; TODO:  Handle assignments better.  The code below fontifies a[b] = 1 and a = b = 2.

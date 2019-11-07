@@ -1,4 +1,3 @@
-
 ;;; bazel-mode.el               -*- lexical-binding:t -*-
 
 ;; Copyright (C) 2018 Robert E. Brown.
@@ -323,3 +322,5 @@ must produce output compatible with that of diff."
       (when errors-file (delete-file errors-file)))))
 
 (provide 'bazel-mode)
+
+;;; bazel-mode.el ends here

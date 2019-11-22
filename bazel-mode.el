@@ -118,7 +118,7 @@ must produce output compatible with that of diff."
            "d_binary" "d_docs" "d_library" "d_source_library" "d_test"
            ;; Docker rules.
            "container_bundle" "container_image" "container_import" "container_load"
-           "container_pull" "container_push"
+           "container_pull" "container_push" "container_run_and_commit" "container_run_and_extract"
            "cc_image" "d_image" "go_image" "groovy_image" "java_image" "nodejs_image" "py3_image"
            "py_image" "rust_image" "scala_image" "war_image"
            ;; Go rules.
@@ -143,6 +143,8 @@ must produce output compatible with that of diff."
            ;; Node.js rules.
            "check_bazel_version" "history" "http_server" "node_repositories" "nodejs_binary"
            "nodejs_test" "npm_install" "npm_package" "rollup_bundle" "yarn_install"
+           ;; Package rules.
+           "deb_packages" "pkg_deb" "pkg_rpm" "pkg_tar" "pkg_zip"
            ;; Perl rules.
            "perl_binary" "perl_test"
            ;; Rust rules.

@@ -100,64 +100,79 @@ must produce output compatible with that of diff."
 
            ;; Language rules.
 
-           ;; Apple rules.
+           ;; Apple rules.  https://github.com/bazelbuild/rules_apple/tree/master/doc
            "apple_bundle_import" "apple_bundle_version" "apple_dynamic_framework_import"
            "apple_resource_bundle" "apple_resource_group" "apple_static_framework_import"
-           "ios_application" "ios_extension" "ios_framework" "ios_imessage_application"
-           "ios_imessage_extension" "ios_static_framework" "ios_sticker_pack_extension"
-           "ios_ui_test" "ios_ui_test_suite" "ios_unit_test" "ios_unit_test_suite"
-           "macos_application" "macos_bundle" "macos_command_line_application" "macos_extension"
-           "macos_unit_test" "tvos_application" "tvos_extension" "tvos_ui_test" "tvos_unit_test"
-           "watchos_application" "watchos_extension"
-           ;; Closure rules.
+           "ios_application" "ios_build_test" "ios_extension" "ios_framework"
+           "ios_imessage_application" "ios_imessage_extension" "ios_static_framework"
+           "ios_sticker_pack_extension" "ios_ui_test" "ios_ui_test_suite" "ios_unit_test"
+           "ios_unit_test_suite"
+           "macos_application" "macos_build_test" "macos_bundle" "macos_command_line_application"
+           "macos_extension" "macos_unit_test"
+           "tvos_application" "tvos_build_test" "tvos_extension" "tvos_ui_test" "tvos_unit_test"
+           "watchos_application" "watchos_build_test" "watchos_extension"
+           ;; Closure rules.  https://github.com/bazelbuild/rules_closure
            "closure_css_binary" "closure_css_library" "closure_grpc_web_library"
            "closure_java_template_library" "closure_js_binary" "closure_js_deps"
            "closure_js_library" "closure_js_proto_library" "closure_js_template_library"
            "closure_js_test" "closure_proto_library" "closure_py_template_library" "phantomjs_test"
-           ;; D rules.
+           ;; D rules.  https://github.com/bazelbuild/rules_d
            "d_binary" "d_docs" "d_library" "d_source_library" "d_test"
-           ;; Docker rules.
+           ;; Docker rules.  https://github.com/bazelbuild/rules_docker
            "container_bundle" "container_image" "container_import" "container_load"
-           "container_pull" "container_push" "container_run_and_commit" "container_run_and_extract"
+           "container_pull" "container_push"
            "cc_image" "d_image" "go_image" "groovy_image" "java_image" "nodejs_image" "py3_image"
            "py_image" "rust_image" "scala_image" "war_image"
-           ;; Go rules.
+           "add_apt_key" "download_pkgs" "install_pkgs"
+           "container_run_and_commit" "container_run_and_commit_layer" "container_run_and_extract"
+           ;; Gazelle Go rules.  https://github.com/bazelbuild/bazel-gazelle
            "gazelle" "gazelle_dependencies"
+           ;; Go rules.  https://github.com/bazelbuild/rules_go
            "go_binary" "go_context" "go_download_sdk" "go_embed_data" "go_host_sdk" "go_library"
            "go_local_sdk" "go_path" "go_proto_compiler" "go_proto_library" "go_register_toolchains"
-           "go_repository" "go_rule" "go_rules_dependencies" "go_source" "go_test" "go_toolchain"
-           ;; Groovy rules.
+           "go_repository" "go_rules_dependencies" "go_source" "go_test" "go_toolchain"
+           "go_wrap_sdk"
+           ;; Groovy rules.  https://github.com/bazelbuild/rules_groovy
            "groovy_and_java_library" "groovy_binary" "groovy_junit_test" "groovy_library"
            "spock_test"
-           ;; Jsonnet rules.
+           ;; Jsonnet rules.  https://github.com/bazelbuild/rules_jsonnet
            "jsonnet_library" "jsonnet_to_json" "jsonnet_to_json_test"
-           ;; Kotlin rules.
-           "define_kt_toolchain" "kotlin_repositories" "kt_jvm_binary" "kt_jvm_import"
-           "kt_jvm_library" "kt_jvm_test" "kt_toolchain"
-           ;; Kubernetes rules.
+           ;; Kotlin rules.  https://github.com/bazelbuild/rules_kotlin
+           "define_kt_toolchain" "kotlin_repositories" "kt_android_library" "kt_compiler_plugin"
+           "kt_javac_options" "kt_js_import" "kt_js_library" "kt_jvm_binary" "kt_jvm_import"
+           "kt_jvm_library" "kt_jvm_test" "kt_kotlinc_options" "kt_register_toolchains"
+           ;; Kubernetes rules.  https://github.com/bazelbuild/rules_k8s
            "k8s_defaults" "k8s_object" "k8s_objects"
-           ;; Lisp rules.
+           ;; Lisp rules.  https://github.com/qitab/bazelisp
            "lisp_binary" "lisp_library" "lisp_test"
            ;; Maven rules.
            "artifact" "maven_install" "pinned_maven_install"
            ;; Node.js rules.
            "check_bazel_version" "history" "http_server" "node_repositories" "nodejs_binary"
            "nodejs_test" "npm_install" "npm_package" "rollup_bundle" "yarn_install"
-           ;; Package rules.
-           "deb_packages" "pkg_deb" "pkg_rpm" "pkg_tar" "pkg_zip"
-           ;; Perl rules.
-           "perl_binary" "perl_test"
-           ;; Rust rules.
-           "rust_binary" "rust_doc" "rust_doc_test" "rust_grpc_library" "rust_library"
-           "rust_proto_library" "rust_test"
-           ;; Python rules.
-           "pip_import" "py_binary" "py_library" "py_runtime" "py_runtime_pair" "py_test"
-           ;; Scala rules.
+           ;; Package rules.  https://github.com/bazelbuild/rules_pkg
+           "deb_packages" "pkg_deb" "pkg_rpm" "pkg_tar" "pkg_zip" "update_deb_packages"
+           ;; Perl rules.  https://github.com/bazelbuild/rules_perl
+           "perl_binary" "perl_library" "perl_test"
+           ;; Rust rules.  https://bazelbuild.github.io/rules_rust
+           "cargo_build_script" "rust_analyzer" "rust_analyzer_aspect" "rust_benchmark"
+           "rust_binary" "rust_bindgen" "rust_bindgen_library" "rust_bindgen_repositories"
+           "rust_bindgen_toolchain" "rust_clippy" "rust_clippy_aspect" "rust_doc" "rust_doc_test"
+           "rust_grpc_library" "rust_library" "rust_proc_macro" "rust_proto_library"
+           "rust_proto_repositories" "rust_proto_toolchain" "rust_repositories"
+           "rust_repository_set" "rust_shared_library" "rust_static_library" "rust_test"
+           "rust_test_suite" "rust_toolchain" "rust_toolchain_repository"
+           "rust_toolchain_repository_proxy" "rust_wasm_bindgen" "rust_wasm_bindgen_repositories"
+           "rust_wasm_bindgen_toolchain"
+           ;; Python rules.  https://github.com/bazelbuild/rules_python
+           "pip_import" "pip_install" "pip_parse"
+           "py_binary" "py_library" "py_runtime" "py_runtime_pair" "py_test"
+           ;; Scala rules.  https://github.com/bazelbuild/rules_scala
            "scala_binary" "scala_doc" "scala_import" "scala_library" "scala_library_suite"
            "scala_macro_library" "scala_proto_library" "scala_repl" "scala_test" "scala_test_suite"
            "scala_toolchain" "thrift_library"
-           ;; Swift rules.
-           "SwiftInfo" "SwiftToolchainInfo" "swift_binary" "swift_c_module" "swift_common module"
+           ;; Swift rules.  https://github.com/bazelbuild/rules_swift
+           "SwiftInfo" "SwiftToolchainInfo" "swift_binary" "swift_c_module" "swift_common"
            "swift_import" "swift_library" "swift_module_alias" "swift_proto_library"
            "swift_rules_dependencies" "swift_test"
            )

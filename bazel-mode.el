@@ -17,7 +17,7 @@
 
 ;; Author: Robert E. Brown <robert.brown@gmail.com>
 
-(require 'cl)
+(require 'cl-lib)
 (require 'python)
 
 (defgroup bazel nil
@@ -204,7 +204,7 @@ must produce output compatible with that of diff."
           (font-lock-syntactic-face-function . python-font-lock-syntactic-face-function))))
 
 (defun starlark-file-type (file-name)
-  (let* ((dot (position ?. file-name :from-end t))
+  (let* ((dot (cl-position ?. file-name :from-end t))
          (base (if dot (subseq file-name 0 dot) file-name))
          (extension (if dot (subseq file-name (1+ dot)) "")))
     (cond ((or (string= base "BUILD") (string= extension "BUILD")) "build")
@@ -301,7 +301,7 @@ must produce output compatible with that of diff."
                                "--mode=diff"
                                (concat "--type=" (starlark-file-type file-name))
                                input-file)))
-            (case status
+            (cl-case status
               ;; No reformatting needed or reformatting was successful.
               ((0 4)
                (save-excursion (bazel-patch-buffer (current-buffer) output-buffer))
@@ -309,7 +309,7 @@ must produce output compatible with that of diff."
                (let ((errors-buffer (get-buffer "*BazelFormatErrors*")))
                  (when errors-buffer (kill-buffer errors-buffer))))
               (t
-               (case status
+               (cl-case status
                  (1 (message "Starlark language syntax errors"))
                  (2 (message "buildifier invoked incorrectly or cannot run diff"))
                  (3 (message "buildifier encountered an unexpected run-time error"))
